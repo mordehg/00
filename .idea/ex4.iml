@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/StandardTaxi.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Block.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Passenger.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Taxi.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TaxiDriver.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/StandardTaxi.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TripInfo.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TaxiCenter.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/MainFlow.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Point.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Point.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/LuxuryTaxi.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TripInfo.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TaxiCenter.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Block.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Taxi.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/TaxiDriver.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Map.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/MainFlow.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Map.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/LuxuryTaxi.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Passenger.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>
