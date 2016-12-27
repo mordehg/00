@@ -1,5 +1,4 @@
 #include "Block.h"
-//////////////////////////////////////
 /* Class: Block
  *  Block keep his Point value, an array of his
     neighbours and number of neighbours.
