@@ -7,6 +7,7 @@
 #include "MainFlow.h"
 #include "Client.h"
 
+using namespace boost;
 /* insertDriver
  * receives the driver information in strings and translate it
    to a driver. adding the driver to the given taxi center
@@ -71,9 +72,10 @@ void Client::insertDriver() {
     this->driver = new_driver;
 }
 
+
 int main() {
-    Client c = Client();
-    c.insertDriver();
+    /*Client c = Client();
+    c.insertDriver();*/
     /*const char* ip_address = "127.0.0.1";
     const int port_no = 5678;
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -100,6 +102,20 @@ int main() {
     }
     cout << "The server sent: " << buffer << endl;
     close(sock);*/
+    Point p = Point(1,2);
+    string serial_str;
+    iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
+    boost::archive::binary_oarchive oa(s);
+    s.flush();
+    oa << p;
+    cout << serial_str << endl;
+
+    Point p2 = Point ();
+    boost::iostreams::basic_array_source<char> device(serial_str.c_str(), serial_str.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
+    boost::archive::binary_iarchive ia(s2);
+    ia >> p2;
     return 0;
 }
 

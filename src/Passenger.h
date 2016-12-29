@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Block.h"
+#include <list>
 
 /*
  * class: Passenger
@@ -12,6 +13,14 @@ class Passenger{
 private:
     Block start;
     Block end;
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & start;
+        ar & end;
+    }
 public:
     /*
      * default constructor

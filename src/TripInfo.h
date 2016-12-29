@@ -18,6 +18,19 @@ private:
     Block start;
     Block end;
     double tariff;
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & ID;
+        ar & passengersNum;
+        ar & currentPoint;
+        ar & fullTrip;
+        ar & start;
+        ar & end;
+        ar & tariff;
+    }
 public:
     /*
      * default constructor

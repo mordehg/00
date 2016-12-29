@@ -2,7 +2,6 @@
 #define EX2_BLOCK_H
 
 #include "Point.h"
-#include <list>
 
 /* Class: Block
  *  Block keep his Point value, an array of his
@@ -14,6 +13,15 @@ private:
     Point neighbours[4];
     int neighboursNum;
     bool obstacle;
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & value;
+        ar & neighbours;
+        ar & obstacle;
+    }
 public:
     /*
      * default constructor

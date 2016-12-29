@@ -4,8 +4,8 @@
 #include <iostream>
 #include "Passenger.h"
 #include "TripInfo.h"
+#include <list>
 using namespace std;
-
 
 /*
  *class: Taxi
@@ -22,6 +22,19 @@ protected:
     char color;
     int priceCoffcient;
     int carType;
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & ID;
+        ar & kilometerSum;
+        ar & currentTrip;
+        ar & manufactuer;
+        ar & color;
+        ar & priceCoffcient;
+        ar & carType;
+    }
 public:
     /*
      * default constructor

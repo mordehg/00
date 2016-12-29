@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Point.h"
-using namespace std;
 
 /* Class: Point
  * a simple point class, that holds a x any y values
@@ -48,4 +47,9 @@ bool Point::isNeighbours(Point other) {
 
 void Point::printPoint() {
     cout << "(" << this->x << "," << this->y << ")" << endl;
+}
+
+ostream& operator<< (ostream &os, const Point &p) {
+    os << '(' << p.getX() << ',' << p.getY() << ')';
+    return os;
 }

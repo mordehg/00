@@ -58,6 +58,7 @@ void MainFlow::run() {
                     int requestedTaxiID = driver.getTaxiID();
                     Taxi driversTaxi = taxiCenter.getTaxi(requestedTaxiID);
                     driver.insertTaxi(driversTaxi);
+                    //send the taxi to the client
                 }
             }
             one_count++;

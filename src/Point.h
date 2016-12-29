@@ -1,6 +1,20 @@
 #ifndef EX2_POINT_H
 #define EX2_POINT_H
 
+#include <fstream>
+#include <sstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/assign/list_of.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+using namespace std;
 /* Class: Point
  * a simple point class, that holds a x any y values
  */
@@ -8,6 +22,15 @@ class Point {
 private:
     int x;
     int y;
+
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & x;
+        ar & y;
+    }
 public:
     /*
      * default constructor
@@ -50,6 +73,9 @@ public:
     //void printPoint();
 
     void printPoint();
+
+    friend ostream& operator<< (ostream &os, const Point &p);
+
 };
 
 #endif //EX2_POINT_H

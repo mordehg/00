@@ -17,6 +17,20 @@ class TaxiDriver {
     Taxi myTaxi;
     int customerSum;
     bool available;
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & ID;
+        ar & age;
+        ar & driverStatus;
+        ar & exprience;
+        ar & rankSum;
+        ar & myTaxi;
+        ar & customerSum;
+        ar & available;
+    }
 public:
     /*
      * default constructor

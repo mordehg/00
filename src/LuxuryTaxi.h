@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Taxi.h"
+#include <fstream>
 
 /*
  * class: LuxuryTaxi

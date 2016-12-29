@@ -25,5 +25,7 @@ public:
     void insertDriver();
 
     TaxiDriver getDriver() { return this->driver; }
+
+    string serlizeDriver();
 };
 #endif //EX4_CLIENT_H
