@@ -53,7 +53,7 @@ TaxiDriver TaxiCenter::getTaxiDriver(int driverID) {
             return *it;
         }
     }
-    return TaxiDriver(-1, -1,'S',-1);
+    return TaxiDriver(-1, -1,'S',-1, -1);
 }
 /*
  * getTaxi
@@ -120,5 +120,12 @@ void TaxiCenter::assignTrips() {
     tripIt = this->currnetTrips.begin();
     for(; driverIt != this->drivers.end() && tripIt != this->currnetTrips.end(); driverIt++, tripIt++) {
         driverIt->insertNewTrip(*tripIt);
+    }
+}
+
+void TaxiCenter::moveAllOneStep() {
+    list<TaxiDriver>::iterator it;
+    for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
+        this->getTaxi(it->getTaxiID()).moveOneStep();
     }
 }

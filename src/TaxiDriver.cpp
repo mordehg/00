@@ -8,7 +8,7 @@
  * gets the driver's id, age, status and exprience years
  * returns the build TaxiDriver with the wanted values
  */
-TaxiDriver::TaxiDriver(int id, int age, char driverS, int exp){
+TaxiDriver::TaxiDriver(int id, int age, char driverS, int exp, int taxiID){
     this->ID = id;
     this->age = age;
     this->driverStatus = driverS;
@@ -16,7 +16,7 @@ TaxiDriver::TaxiDriver(int id, int age, char driverS, int exp){
     this->rankSum = 0;
     this->customerSum = 0;
     this->available = true;
-    this->myTaxi = Taxi(-1, -1,'S',-1);
+    this->myTaxi = Taxi(taxiID, -1,'S',-1);
 }
 /*
  * destructor

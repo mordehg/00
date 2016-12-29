@@ -1,15 +1,16 @@
 #include "MainFlow.h"
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
+#include "Clock.h"
 
 using namespace std;
 
-/*
+/**
  * default constructor
  */
 MainFlow::MainFlow() {}
 
-/*
+/**
  * run
  * responsible to control the input and call the
    needed method
@@ -25,6 +26,7 @@ void MainFlow::run() {
     int obstaclesNum;
     cin >> obstaclesNum;
 
+    Clock clock = Clock();
     TaxiCenter taxiCenter;
     Map map;
     if (!obstaclesNum) {
@@ -40,11 +42,26 @@ void MainFlow::run() {
     }
 
     //getting a number for different actions :
-    int command;
+    int command, one_count = 0, driversNum = 0;
     do {
         cin >> command;
-        if (command == 1)
-            insertDriver(taxiCenter);
+        if (command == 1) {
+            TaxiDriver driver = TaxiDriver(-1,-1,'F',-1,-1);
+            if (one_count == 1) {
+
+            } else if (one_count == 2) {
+                //geeting it from the client
+                driversNum = 1;
+            } else if (one_count == 3) {
+                for (int i = 0; i <driversNum; i++) {
+                    /*getting the driver from the client*/
+                    int requestedTaxiID = driver.getTaxiID();
+                    Taxi driversTaxi = taxiCenter.getTaxi(requestedTaxiID);
+                    driver.insertTaxi(driversTaxi);
+                }
+            }
+            one_count++;
+        }
         else if (command == 2)
             insertTrip(taxiCenter, map);
         else if (command == 3)
@@ -53,13 +70,19 @@ void MainFlow::run() {
             printOutDriverLocation(taxiCenter);
         else if (command == 6)
             startDriving(taxiCenter);
+        else if (command == 9) {
+            clock.timePassed();
+            if (clock.Go()) {
+                taxiCenter.moveAllOneStep();
+            }
+        }
         else
             break;
     } while (command != 7);
     return;
 }
 
-/*
+/**
  * inputParser
  * receives the input and spared the input by "," and insert
    the strings to a list.
@@ -86,7 +109,7 @@ vector<string> MainFlow::inputParser() {
     return data;
 }
 
-/*
+/**
  * obstacles
  * receives the obstacles input and translate it
    to a list of points
@@ -108,7 +131,7 @@ list<Point> MainFlow::obstacles(int obstaclesNum) {
     return returnList;
 }
 
-/*
+/**
  * insertDriver
  * receives the driver information in strings and translate it
    to a driver. adding the driver to the given taxi center
@@ -143,13 +166,13 @@ void MainFlow::insertDriver(TaxiCenter& tc) {
     int driver_id = atoi(str_driver_id.c_str());
     driver_data.pop_back();
 
-    TaxiDriver new_driver = TaxiDriver(driver_id,driver_age,statusBuffer[0],driver_experience);
+    TaxiDriver new_driver = TaxiDriver(driver_id,driver_age,statusBuffer[0],driver_experience, vehicle_id);
     Taxi driversTaxi = tc.getTaxi(vehicle_id);
     new_driver.insertTaxi(driversTaxi);
     tc.addDriver(new_driver);
 }
 
-/*
+/**
  * insertTrip
  * receives the trip information in strings and translate it
    to a trip. adding the trip to the given taxi center
@@ -198,7 +221,7 @@ void MainFlow::insertTrip(TaxiCenter &tc, Map &map) {
     tc.addTrip(new_trip);
 }
 
-/*
+/**
  * insertTaxi
  * receives the taxi information in strings and translate it
    to a taxi. adding the taxi to the given taxi center
@@ -237,7 +260,7 @@ void MainFlow::insertTaxi(TaxiCenter &tc) {
     }
 }
 
-/*
+/**
  * printOutDriver
  * gets an input for a driver id, and prints the
    driver's current location
@@ -250,7 +273,7 @@ void MainFlow::printOutDriverLocation(TaxiCenter &tc) {
     tc.getTaxiDriver(id).getLocation().getValue().printPoint();
 }
 
-/*
+/**
  * startDriving
  * attach a trip to each driver
  * move the drivers to the end of it's trip

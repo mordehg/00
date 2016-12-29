@@ -27,7 +27,7 @@ public:
      * gets the driver's id, age, status and exprience years
      * returns the build TaxiDriver with the wanted values
      */
-    TaxiDriver(int id, int age, char driverS, int exp);
+    TaxiDriver(int id, int age, char driverS, int exp, int taxiID);
     /*
      * destructor
      * deletes the point.

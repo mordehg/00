@@ -90,6 +90,7 @@ public:
      */
     void addTrip(TripInfo &trip);
 
+    void moveAllOneStep();
 
 };
 #endif //EX2_TAXICENTER_H

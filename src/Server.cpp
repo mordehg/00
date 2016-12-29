@@ -4,8 +4,9 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>*/
+#include "Server.h"
 #include "MainFlow.h"
-using namespace std;
+
 int main() {
     /*const int server_port = 5678;
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -33,6 +34,7 @@ int main() {
         perror("error writing to socket");
     }
     close(sock);*/
+
     MainFlow flow = MainFlow();
     flow.run();
     return 0;
