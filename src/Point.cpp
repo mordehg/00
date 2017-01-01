@@ -48,8 +48,3 @@ bool Point::isNeighbours(Point other) {
 void Point::printPoint() {
     cout << "(" << this->x << "," << this->y << ")" << endl;
 }
-
-ostream& operator<< (ostream &os, const Point &p) {
-    os << '(' << p.getX() << ',' << p.getY() << ')';
-    return os;
-}

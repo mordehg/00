@@ -74,8 +74,6 @@ public:
 
     void printPoint();
 
-    friend ostream& operator<< (ostream &os, const Point &p);
-
 };
 
 #endif //EX2_POINT_H

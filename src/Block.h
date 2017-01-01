@@ -75,5 +75,7 @@ public:
       */
     const bool operator== (const Block &other);
 
+
+
 };
 #endif //EX2_BLOCK_H

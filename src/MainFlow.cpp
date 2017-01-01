@@ -1,3 +1,13 @@
+#include <iostream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include "Server.h"
+#include "MainFlow.h"
+#include "../sockets/Udp.h"
+
 #include "MainFlow.h"
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
@@ -46,7 +56,7 @@ void MainFlow::run() {
     do {
         cin >> command;
         if (command == 1) {
-            TaxiDriver driver = TaxiDriver(-1,-1,'F',-1,-1);
+            /*TaxiDriver driver = TaxiDriver(-1,-1,'F',-1,-1);
             if (one_count == 1) {
 
             } else if (one_count == 2) {
@@ -54,14 +64,15 @@ void MainFlow::run() {
                 driversNum = 1;
             } else if (one_count == 3) {
                 for (int i = 0; i <driversNum; i++) {
-                    /*getting the driver from the client*/
+                    //getting the driver from the client
                     int requestedTaxiID = driver.getTaxiID();
                     Taxi driversTaxi = taxiCenter.getTaxi(requestedTaxiID);
                     driver.insertTaxi(driversTaxi);
                     //send the taxi to the client
                 }
             }
-            one_count++;
+            one_count++;*/
+            getDriverSendTaxi(taxiCenter);
         }
         else if (command == 2)
             insertTrip(taxiCenter, map);
@@ -137,40 +148,33 @@ list<Point> MainFlow::obstacles(int obstaclesNum) {
  * receives the driver information in strings and translate it
    to a driver. adding the driver to the given taxi center
  */
-void MainFlow::insertDriver(TaxiCenter& tc) {
-    //all the driver's given information will be in a
-    //string's vector:
-    vector<string> driver_data = inputParser();
+void MainFlow::getDriverSendTaxi(TaxiCenter& tc) {
+    char buffer[4096];
+    Socket* socket = new Udp(true,5007);
+    socket->initialize();
 
-    //getting the taxi id for the current driver and saving it:
-    string str_vehicle_id = driver_data.back();
-    int vehicle_id = atoi(str_vehicle_id.c_str());
-    driver_data.pop_back();
+    //getting the driver from the client
+    int dataSize = socket->reciveData(buffer, 4096);
+    TaxiDriver driver;
+    boost::iostreams::basic_array_source<char> device(buffer, dataSize);
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
+    boost::archive::binary_iarchive ia(s2);
+    ia >> driver;
+    Taxi driversTaxi = tc.getTaxi(driver.getTaxiID());
+    driver.insertTaxi(driversTaxi);
+    tc.addDriver(driver);
 
-    //getting the driver experience and saving it:
-    string str_driver_experience = driver_data.back();
-    int driver_experience = atoi(str_driver_experience.c_str());
-    driver_data.pop_back();
+    //serial the taxi:
+    string serial_str;
+    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
+    boost::archive::binary_oarchive oa(s);
+    oa << driversTaxi;
+    s.flush();
+    //send the taxi:
+    socket->sendData(serial_str);
 
-    //getting the driver status and saving it:
-    string str_driver_status = driver_data.back();
-    const char* statusBuffer = str_driver_status.c_str();
-    driver_data.pop_back();
-
-    //getting the drivers age and saving it:
-    string str_driver_age = driver_data.back();
-    int driver_age = atoi(str_driver_age.c_str());
-    driver_data.pop_back();
-
-    //getting the drivers id, and saving it:
-    string str_driver_id = driver_data.back();
-    int driver_id = atoi(str_driver_id.c_str());
-    driver_data.pop_back();
-
-    TaxiDriver new_driver = TaxiDriver(driver_id,driver_age,statusBuffer[0],driver_experience, vehicle_id);
-    Taxi driversTaxi = tc.getTaxi(vehicle_id);
-    new_driver.insertTaxi(driversTaxi);
-    tc.addDriver(new_driver);
+    delete(socket);
 }
 
 /**

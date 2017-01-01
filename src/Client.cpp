@@ -6,6 +6,7 @@
 #include <string.h>
 #include "MainFlow.h"
 #include "Client.h"
+#include "../sockets/Udp.h"
 
 using namespace boost;
 /* insertDriver
@@ -38,7 +39,7 @@ vector<string> Client::inputParser() {
  * receives the driver information in strings and translate it
    to a driver. adding the driver to the given taxi center
  */
-void Client::insertDriver() {
+void Client::createDriver() {
     //all the driver's given information will be in a
     //string's vector:
     vector<string> driver_data = inputParser();
@@ -74,48 +75,34 @@ void Client::insertDriver() {
 
 
 int main() {
-    /*Client c = Client();
-    c.insertDriver();*/
-    /*const char* ip_address = "127.0.0.1";
-    const int port_no = 5678;
-    int sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock < 0) {
-        perror("error creating socket");
-    }
-    struct sockaddr_in sin;
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = inet_addr(ip_address);
-    sin.sin_port = htons(port_no);
-    char data[] = "hello";
-    int data_len = sizeof(data);
-    int sent_bytes = sendto(sock, data, data_len, 0, (struct sockaddr *) &sin, sizeof(sin));
-    if (sent_bytes < 0) {
-        perror("error writing to socket");
-    }
-    struct sockaddr_in from;
-    unsigned int from_len = sizeof(struct sockaddr_in);
+    //first, getting the driver from the console and creating it
+    Client c = Client();
+    c.createDriver();
+
     char buffer[4096];
-    int bytes = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *) &from, &from_len);
-    if (bytes < 0) {
-        perror("error reading from socket");
-    }
-    cout << "The server sent: " << buffer << endl;
-    close(sock);*/
-    Point p = Point(1,2);
+    Socket* socket = new Udp(false,5007);
+    socket->initialize();
+
+    //serial the driver:
     string serial_str;
-    iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
+    TaxiDriver driver_to_send = c.getDriver();
+    oa << driver_to_send;
     s.flush();
-    oa << p;
-    cout << serial_str << endl;
+    //send the driver
+    socket->sendData(serial_str);
 
-    Point p2 = Point ();
-    boost::iostreams::basic_array_source<char> device(serial_str.c_str(), serial_str.size());
+    //getting the taxi from the server
+    int dataSize = socket->reciveData(buffer, 4096);
+    Taxi taxi;
+    boost::iostreams::basic_array_source<char> device(buffer, dataSize);
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
-    ia >> p2;
+    ia >> taxi;
+    c.getDriver().insertTaxi(taxi);
+
+    delete(socket);
     return 0;
 }
-

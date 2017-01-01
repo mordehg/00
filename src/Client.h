@@ -22,7 +22,7 @@ public:
     * receives the driver information in strings and translate it
       to a driver. adding the driver to the given taxi center
     */
-    void insertDriver();
+    void createDriver();
 
     TaxiDriver getDriver() { return this->driver; }
 

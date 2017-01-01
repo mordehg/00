@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Map.h"
 #include <list>
+#include <boost/serialization/list.hpp>
 using namespace std;
 
 /*class: TripInfo
