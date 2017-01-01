@@ -52,27 +52,14 @@ void MainFlow::run() {
     }
 
     //getting a number for different actions :
-    int command, one_count = 0, driversNum = 0;
+    int command, driversNum = 0;
     do {
         cin >> command;
         if (command == 1) {
-            /*TaxiDriver driver = TaxiDriver(-1,-1,'F',-1,-1);
-            if (one_count == 1) {
-
-            } else if (one_count == 2) {
-                //geeting it from the client
-                driversNum = 1;
-            } else if (one_count == 3) {
-                for (int i = 0; i <driversNum; i++) {
-                    //getting the driver from the client
-                    int requestedTaxiID = driver.getTaxiID();
-                    Taxi driversTaxi = taxiCenter.getTaxi(requestedTaxiID);
-                    driver.insertTaxi(driversTaxi);
-                    //send the taxi to the client
-                }
+            cin >> driversNum;
+            for (int i = 0; i < driversNum; i++) {
+                getDriverSendTaxi(taxiCenter);
             }
-            one_count++;*/
-            getDriverSendTaxi(taxiCenter);
         }
         else if (command == 2)
             insertTrip(taxiCenter, map);
