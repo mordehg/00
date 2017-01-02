@@ -112,5 +112,6 @@ public:
      */
     Block getLocation();
 
+    void moveTheTaxiOneStep(Map map);
 };
 #endif //EX2_TAXIDRIVER_H

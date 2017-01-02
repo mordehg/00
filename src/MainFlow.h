@@ -2,6 +2,10 @@
 #define EX2_MAINFLOW_H
 
 #include "TaxiCenter.h"
+#include "StandardTaxi.h"
+#include "LuxuryTaxi.h"
+#include "Clock.h"
+
 #include <vector>
 #include <string>
 

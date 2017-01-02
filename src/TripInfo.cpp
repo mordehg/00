@@ -101,7 +101,11 @@ void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
             break;
     }
     if (taxiType == 1) {
+        cout << "before: ";
+        it->printPoint();
+        cout << "after ";
         it++;
+        it->printPoint();
         if (it == this->fullTrip.end())
             return;
         currentPoint = map.getBlock(*it);
@@ -114,5 +118,6 @@ void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
             return;
         currentPoint = map.getBlock(*it);
     }
+    currentPoint.getValue().printPoint();
 }
 

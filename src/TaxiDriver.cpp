@@ -67,3 +67,7 @@ void TaxiDriver::endOfTrip() {
     this->myTaxi.endOfTrip();
     this->available = true;
 }
+
+void TaxiDriver::moveTheTaxiOneStep(Map map) {
+    this->myTaxi.moveOneStep(map);
+}

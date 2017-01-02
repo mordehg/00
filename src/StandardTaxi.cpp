@@ -23,7 +23,7 @@ StandardTaxi::StandardTaxi(int id, char manu, char color) {
     this->currentTrip.currentUpdate(start);
 }
 
-/*
+/**
  * moveOnStep
  * make the taxi moment, for a standard one moves 1
    block, for luxury one moves 2 blocks

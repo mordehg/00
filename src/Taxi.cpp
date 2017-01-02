@@ -1,14 +1,14 @@
 #include "Taxi.h"
 #include "LuxuryTaxi.h"
 
-/*
+/**
  *class: Taxi
  * the "father" class for taxi.
  * all of the method are implementers except for moveOneStep
    that is different in different taxis.
  */
 
-/*
+/**
  * Constructor
  * gets the taxi's id, manufacture name, color, price coefficient and type,
    1 - for standard and 2 - for luxury.
@@ -25,21 +25,21 @@ Taxi::Taxi(int id, int type, char manu, char taxiColor) {
     this->currentTrip.currentUpdate(start);
 }
 
-/*
+/**
  * destructor
  * deletes the point.
  */
 Taxi::~Taxi() {
 }
 
-/*
+/**
  * finalPrice
  * returns the final price: the final calculated price.
  */
 int Taxi::finalPrice() {
     return (this->priceCoffcient * this->currentTrip.getPrice());
 }
-/*
+/**
  * override the == operator for taxis
  */
 bool Taxi::operator==(Taxi other) {
@@ -64,4 +64,9 @@ void Taxi::endOfTrip() {
  * not implemented, the sons will implement as needed.
  */
 void Taxi::moveOneStep(Map map) {
+    if (this->carType == 1) {
+        this->currentTrip.updateCurrentOneStep(1, map);
+    } else if (this->carType == 2) {
+        this->currentTrip.updateCurrentOneStep(2, map);
+    }
 }

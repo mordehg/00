@@ -96,5 +96,7 @@ public:
 
     TripInfo getTripByTime(int tripTime);
 
+    void assignAvaliableDriver(TripInfo &trip);
+
 };
 #endif //EX2_TAXICENTER_H

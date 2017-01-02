@@ -7,6 +7,9 @@
 #include "MainFlow.h"
 #include "Client.h"
 #include "../sockets/Udp.h"
+#include "boost/serialization/export.hpp"
+BOOST_CLASS_EXPORT_GUID(StandardTaxi,"StandardTaxi");
+BOOST_CLASS_EXPORT_GUID(LuxuryTaxi,"LuxuryTaxi");
 
 using namespace boost;
 /* insertDriver

@@ -63,6 +63,31 @@ TaxiDriver TaxiCenter::getAvaliableDriver(TripInfo &trip) {
     }
     return minDisDriver;
 }
+
+void TaxiCenter::assignAvaliableDriver(TripInfo &trip) {
+    Block tripStsrt = trip.getStartPoint();
+    list<TaxiDriver>::iterator it;
+    TaxiDriver minDisDriver;
+    it = this->drivers.begin();
+    minDisDriver = *it;
+    it++;
+    for (it; it != this->drivers.end(); it++) {
+        Block itLocation = it->getLocation();
+        Block minLocation = minDisDriver.getLocation();
+        int currentDistace = this->map.distanse(itLocation, tripStsrt);
+        int minDis = this->map.distanse(minLocation, tripStsrt);
+        if (it->driverAvailable() && (currentDistace < minDis)) {
+            minDisDriver = *it;
+        }
+    }
+    list<TaxiDriver>::iterator it2;
+    for(it2 = this->drivers.begin(); it2 != this->drivers.end(); it2++) {
+        if (minDisDriver.getDriverID() == it2->getDriverID()) {
+            it2->insertNewTrip(trip);
+            break;
+        }
+    }
+}
 /*
  * getTaxiDriver
  * returns the taxi with the given ID
@@ -158,6 +183,9 @@ TripInfo TaxiCenter::getTripByTime(int tripTime) {
 void TaxiCenter::moveAllOneStep(Map map) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
-        this->getTaxi(it->getTaxiID()).moveOneStep(map);
+        cout << "driver: " << it->getDriverID() << " current: " ;
+        it->getLocation().getValue().printPoint();
+        //this->getTaxi(it->getTaxiID()).moveOneStep(map);
+        it->moveTheTaxiOneStep(map);
     }
 }

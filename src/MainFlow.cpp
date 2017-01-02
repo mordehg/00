@@ -7,12 +7,6 @@
 #include "Server.h"
 #include "MainFlow.h"
 #include "../sockets/Udp.h"
-
-#include "MainFlow.h"
-#include "StandardTaxi.h"
-#include "LuxuryTaxi.h"
-#include "Clock.h"
-
 using namespace std;
 
 /**
@@ -73,10 +67,10 @@ void MainFlow::run() {
             clock.timePassed();
             TripInfo thisTimeTrip = taxiCenter.getTripByTime(clock.currentTime());
             if (thisTimeTrip.getID() != -1) {
-                TaxiDriver assignDriver = taxiCenter.getAvaliableDriver(thisTimeTrip);
-                taxiCenter.getTaxiDriver(assignDriver.getDriverID()).insertNewTrip(thisTimeTrip);
+                taxiCenter.assignAvaliableDriver(thisTimeTrip);
             }
             taxiCenter.moveAllOneStep(map);
+            cout << taxiCenter.getTaxiDriver(0).driverAvailable();
         }
         else
             break;
@@ -140,7 +134,7 @@ list<Point> MainFlow::obstacles(int obstaclesNum) {
  */
 void MainFlow::getDriverSendTaxi(TaxiCenter& tc) {
     char buffer[4096];
-    Socket* socket = new Udp(true,5007);
+    Socket* socket = new Udp(true,5008);
     socket->initialize();
 
     //getting the driver from the client
