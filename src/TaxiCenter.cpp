@@ -5,6 +5,27 @@
  * center that holds the map and all of the drivers, taxis and passengers
  */
 
+list<TripInfo> TaxiCenter::sortTripInfoList() {
+    list<TripInfo> sortedTrips;
+    list<TripInfo>::iterator it;
+    int lastInsertID = -1;
+    for(it = this->currnetTrips.begin(); it != this->currnetTrips.end(); it++) {
+        list<TripInfo>::iterator it2;
+        it2 = this->currnetTrips.begin();
+        TripInfo minTrip = *it2;
+        it2++;
+        for (it2; it2 != this->currnetTrips.end(); it2++) {
+            if (it2->getID() != lastInsertID) {
+                if (it2->getTripTime() < minTrip.getTripTime())
+                    minTrip = *it2;
+            }
+        }
+        lastInsertID = minTrip.getID();
+        sortedTrips.push_front(minTrip);
+    }
+    return sortedTrips;
+}
+
 /*
  * Constructor
  * gets the map.
@@ -22,7 +43,7 @@ TaxiCenter::~TaxiCenter() {
 
 /*
  * getAvaliableDriver
- * returns a driver that is available for the trip.
+ * returns a driver that is available and most close to the trip.
  */
 TaxiDriver TaxiCenter::getAvaliableDriver(TripInfo &trip) {
     Block tripStsrt = trip.getStartPoint();
@@ -111,21 +132,32 @@ void TaxiCenter::moveAllToend() {
 
 /*
  * assignTrips
- * attach each driver to a trip
+ * attach each driver to a trip by the trip time and start location
  */
 void TaxiCenter::assignTrips() {
-    list<TaxiDriver>::iterator driverIt;
-    list<TripInfo>::iterator tripIt;
-    driverIt = this->drivers.begin();
-    tripIt = this->currnetTrips.begin();
-    for(; driverIt != this->drivers.end() && tripIt != this->currnetTrips.end(); driverIt++, tripIt++) {
-        driverIt->insertNewTrip(*tripIt);
+    list<TripInfo> sortedListOfTheTrips = sortTripInfoList();
+    list<TripInfo>::iterator it;
+    for (it = sortedListOfTheTrips.begin(); it != sortedListOfTheTrips.end(); it++) {
+        if (!it->hasADriver()) {
+            TaxiDriver closestDriver = getAvaliableDriver(*it);
+            closestDriver.insertNewTrip(*it);
+        }
     }
 }
 
-void TaxiCenter::moveAllOneStep() {
+TripInfo TaxiCenter::getTripByTime(int tripTime) {
+    list<TripInfo>::iterator it;
+    for (it = this->currnetTrips.begin(); it != this->currnetTrips.end(); it++) {
+        if (it->getTripTime() == tripTime)
+            return *it;
+    }
+    Block nab = Block(Point(-1,-1));
+    return TripInfo(-1, nab, nab, -1,-1,-1);
+}
+
+void TaxiCenter::moveAllOneStep(Map map) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
-        this->getTaxi(it->getTaxiID()).moveOneStep();
+        this->getTaxi(it->getTaxiID()).moveOneStep(map);
     }
 }

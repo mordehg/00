@@ -32,6 +32,6 @@ public:
      * make the taxi moment, for a standard one moves 1
        block, for luxury one moves 2 blocks
      */
-    void moveOneStep();
+    void moveOneStep(Map map);
 };
 #endif //EX2_STANDARDTAXI_H

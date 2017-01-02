@@ -21,7 +21,7 @@ Taxi::Taxi(int id, int type, char manu, char taxiColor) {
     this->carType = type;
     this->kilometerSum = 0;
     Block start = Block(Point(0,0));
-    this->currentTrip = TripInfo(-1, start, start, 0, 0);
+    this->currentTrip = TripInfo(-1, start, start, 0, 0, 0);
     this->currentTrip.currentUpdate(start);
 }
 
@@ -63,6 +63,5 @@ void Taxi::endOfTrip() {
    block, for luxury one moves 2 blocks
  * not implemented, the sons will implement as needed.
  */
-void Taxi::moveOneStep() {
-
+void Taxi::moveOneStep(Map map) {
 }

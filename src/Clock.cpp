@@ -11,7 +11,3 @@ void Clock::timePassed() {
 int Clock::currentTime() {
     return this->time;
 }
-
-bool Clock::Go() {
-    return ((this->time % 9) == 0);
-}

@@ -19,7 +19,7 @@ StandardTaxi::StandardTaxi(int id, char manu, char color) {
     this->kilometerSum = 0;
     //temp trip for flags:
     Block start = Block(Point(0,0));
-    this->currentTrip = TripInfo(-1, start, start, 0, 0);
+    this->currentTrip = TripInfo(-1, start, start, 0, 0,0);
     this->currentTrip.currentUpdate(start);
 }
 
@@ -28,6 +28,6 @@ StandardTaxi::StandardTaxi(int id, char manu, char color) {
  * make the taxi moment, for a standard one moves 1
    block, for luxury one moves 2 blocks
  */
-void StandardTaxi::moveOneStep() {
-
+void StandardTaxi::moveOneStep(Map map) {
+    this->currentTrip.updateCurrentOneStep(1, map);
 }

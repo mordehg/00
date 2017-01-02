@@ -19,6 +19,8 @@ private:
     Block start;
     Block end;
     double tariff;
+    int tripTime;
+    bool beenAttachToDriver;
     friend class boost::serialization::access;
 
     template<class Archive>
@@ -31,6 +33,7 @@ private:
         ar & start;
         ar & end;
         ar & tariff;
+        ar & tripTime;
     }
 public:
     /*
@@ -42,7 +45,7 @@ public:
      * gets the trip id, the start block, the end block and the tip's price
      * returns the build trip with the wanted values
      */
-    TripInfo(int id, Block &startB, Block &endB, int passNum, double price);
+    TripInfo(int id, Block &startB, Block &endB, int passNum, double price, int time);
     /*
      * destructor
      * deletes the TripInfo.
@@ -115,5 +118,13 @@ public:
     void setPrice(int newPrice) { this->tariff = newPrice; }
 
     void insertFullTrack(list<Point> &track);
+
+    int getTripTime() { return this->tripTime; }
+
+    bool hasADriver() { return this->beenAttachToDriver; }
+
+    void attachingADriver() { this->beenAttachToDriver = true; }
+
+    void updateCurrentOneStep(int taxiType, Map map);
 };
 #endif //EX2_TRIPINFO_H

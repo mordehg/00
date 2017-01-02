@@ -13,7 +13,6 @@ public:
     Clock();
     void timePassed();
     int currentTime();
-    bool Go();
 };
 
 

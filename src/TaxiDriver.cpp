@@ -45,7 +45,9 @@ void TaxiDriver::addCustomer() {
  * insert the given trip to e the drivers current trip
  */
 void TaxiDriver::insertNewTrip(TripInfo &trip) {
+    trip.attachingADriver();
     this->myTaxi.updateTrip(trip);
+    this->available = false;
 }
 
 /*

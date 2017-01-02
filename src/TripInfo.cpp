@@ -12,13 +12,15 @@ using namespace std;
  * gets the trip id, the start block, the end block and the tip's price
  * returns the build trip with the wanted values
  */
-TripInfo::TripInfo(int id, Block &startB, Block &endB, int passNum, double price) {
+TripInfo::TripInfo(int id, Block &startB, Block &endB, int passNum, double price, int time) {
     this->ID = id;
     this->passengersNum = passNum;
     this->start = startB;
     this->end = endB;
     this->tariff = price;
     this->currentPoint = startB;
+    this->tripTime = time;
+    this->beenAttachToDriver = false;
 }
 /*
  * destructor
@@ -90,5 +92,27 @@ int TripInfo::trackBehaindLength() {
 
 void TripInfo::insertFullTrack(list<Point> &track) {
     this->fullTrip = track;
+}
+
+void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
+    list<Point>::iterator it;
+    for(it = this->fullTrip.begin(); it != this->fullTrip.end(); it++) {
+        if (*it == this->currentPoint.getValue())
+            break;
+    }
+    if (taxiType == 1) {
+        it++;
+        if (it == this->fullTrip.end())
+            return;
+        currentPoint = map.getBlock(*it);
+    } else if (taxiType == 2 ){
+        it++;
+        if (it == this->fullTrip.end())
+            return;
+        it++;
+        if (it == this->fullTrip.end())
+            return;
+        currentPoint = map.getBlock(*it);
+    }
 }
 

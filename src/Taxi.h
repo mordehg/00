@@ -105,7 +105,7 @@ public:
        block, for luxury one moves 2 blocks
      * not implemented, the sons will implement as needed.
      */
-    virtual void moveOneStep();
+    virtual void moveOneStep(Map map);
 
     /*
      * override the == operator for taxis

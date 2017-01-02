@@ -71,9 +71,12 @@ void MainFlow::run() {
             startDriving(taxiCenter);
         else if (command == 9) {
             clock.timePassed();
-            if (clock.Go()) {
-                taxiCenter.moveAllOneStep();
+            TripInfo thisTimeTrip = taxiCenter.getTripByTime(clock.currentTime());
+            if (thisTimeTrip.getID() != -1) {
+                TaxiDriver assignDriver = taxiCenter.getAvaliableDriver(thisTimeTrip);
+                taxiCenter.getTaxiDriver(assignDriver.getDriverID()).insertNewTrip(thisTimeTrip);
             }
+            taxiCenter.moveAllOneStep(map);
         }
         else
             break;
@@ -174,6 +177,11 @@ void MainFlow::insertTrip(TaxiCenter &tc, Map &map) {
     //string's vector:
     vector<string> tripData = inputParser();
 
+    //getting the trip's time to start:
+    string str_time = tripData.back();
+    int time = atoi(str_time.c_str());
+    tripData.pop_back();
+
     //getting the tariff and saving it:
     string str_tariff = tripData.back();
     int tariff = atoi(str_tariff.c_str());
@@ -209,7 +217,7 @@ void MainFlow::insertTrip(TaxiCenter &tc, Map &map) {
 
     Block start = map.getBlock(start_point);
     Block end = map.getBlock(end_point);
-    TripInfo new_trip = TripInfo(trip_id, start, end, numOfPassengers, tariff);
+    TripInfo new_trip = TripInfo(trip_id, start, end, numOfPassengers, tariff, time);
     tc.addTrip(new_trip);
 }
 

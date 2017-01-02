@@ -18,6 +18,8 @@ private:
     list<TaxiDriver> drivers;
     list<Taxi> taxis;
     list<TripInfo> currnetTrips;
+
+    list<TripInfo> sortTripInfoList();
 public:
     /*
      * default constructor
@@ -90,7 +92,9 @@ public:
      */
     void addTrip(TripInfo &trip);
 
-    void moveAllOneStep();
+    void moveAllOneStep(Map map);
+
+    TripInfo getTripByTime(int tripTime);
 
 };
 #endif //EX2_TAXICENTER_H
