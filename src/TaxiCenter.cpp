@@ -180,12 +180,12 @@ TripInfo TaxiCenter::getTripByTime(int tripTime) {
     return TripInfo(-1, nab, nab, -1,-1,-1);
 }
 
-void TaxiCenter::moveAllOneStep(Map map) {
+
+void TaxiCenter::moveAllOneStep(Map map, Clock clock) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
-        cout << "driver: " << it->getDriverID() << " current: " ;
-        it->getLocation().getValue().printPoint();
-        //this->getTaxi(it->getTaxiID()).moveOneStep(map);
-        it->moveTheTaxiOneStep(map);
+        if (clock.currentTime() - it->getTripTime() == 1) {
+            it->moveTheTaxiOneStep(map);
+        }
     }
 }

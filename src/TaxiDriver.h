@@ -113,5 +113,7 @@ public:
     Block getLocation();
 
     void moveTheTaxiOneStep(Map map);
+
+    int getTripTime();
 };
 #endif //EX2_TAXIDRIVER_H

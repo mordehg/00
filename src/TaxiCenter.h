@@ -6,6 +6,7 @@
 #include "Taxi.h"
 #include "TaxiDriver.h"
 #include "Passenger.h"
+#include "Clock.h"
 #include <list>
 using namespace std;
 
@@ -92,7 +93,7 @@ public:
      */
     void addTrip(TripInfo &trip);
 
-    void moveAllOneStep(Map map);
+    void moveAllOneStep(Map map, Clock clock);
 
     TripInfo getTripByTime(int tripTime);
 

@@ -71,3 +71,7 @@ void TaxiDriver::endOfTrip() {
 void TaxiDriver::moveTheTaxiOneStep(Map map) {
     this->myTaxi.moveOneStep(map);
 }
+
+int TaxiDriver::getTripTime() {
+    return this->myTaxi.getTrip().getTripTime();
+}

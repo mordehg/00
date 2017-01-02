@@ -69,7 +69,7 @@ void MainFlow::run() {
             if (thisTimeTrip.getID() != -1) {
                 taxiCenter.assignAvaliableDriver(thisTimeTrip);
             }
-            taxiCenter.moveAllOneStep(map);
+            taxiCenter.moveAllOneStep(map, clock);
             cout << taxiCenter.getTaxiDriver(0).driverAvailable();
         }
         else
