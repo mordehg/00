@@ -1,9 +1,9 @@
 #include "LuxuryTaxi.h"
 
-/*
+/**
  * Constructor
- * gets the taxi's id, manufacture name, color, price coefficient
- * returns the build taxi with 2 as type, for luxury taxi.
+ * @param the taxi's id, manufacture name, color, price coefficient
+ * @return the build taxi with 2 as type, for luxury taxi.
  */
 LuxuryTaxi::LuxuryTaxi(int id, char manu, char color) {
     this->ID = id;
@@ -17,9 +17,10 @@ LuxuryTaxi::LuxuryTaxi(int id, char manu, char color) {
     this->currentTrip.currentUpdate(start);
 }
 
-/*
+/**
  * moveOnStep
- * make the taxi moment, for a standard one moves 1
+ * @param the map of the game
+ * make the taxi movment, for a standard one moves 1
    block, for luxury one moves 2 blocks
  */
 void LuxuryTaxi::moveOneStep(Map map) {

@@ -3,16 +3,17 @@
 #include <stack>
 using namespace std;
 
-/* Class: Map
+/**
+ * Class: Map
  * this is the class that holds all the block of the program.
  * all the taxi moves on this block
  */
 
-/*
+/**
  * Constructor
- * gets the sizes of the wanted map
+ * @param the sizes of the wanted map
  * build all the block
- * returns: the build map with the wanted values.
+ * @return the build map with the wanted values.
  */
 Map::Map(int width, int high) {
     this->numOfBlocks = width * high;
@@ -29,6 +30,13 @@ Map::Map(int width, int high) {
     }
 }
 
+/**
+ * Constructor
+ * @param the sizes of the wanted map and a list
+   the obstacles in the creating map.
+ * build all the block and defining the obstacles ones.
+ * @return the build map with the wanted values.
+ */
 Map::Map(int width, int high, list<Point> obstacle) {
     this->numOfBlocks = width * high;
     for (int i = 0; i < width; i++) {
@@ -49,17 +57,17 @@ Map::Map(int width, int high, list<Point> obstacle) {
     }
 }
 
-/*
+/**
  * destructor
  * deletes the Map.
  */
 Map::~Map() {
 }
 
-/*
+/**
  * getBlock
- * gets the point value of the wanted Bloack.
- * returns the block with the given value.
+ * @param the point value of the wanted Bloack.
+ * @return the block with the given value.
  */
 Block Map::getBlock(Point value){
     std::list<Block>::iterator it;
@@ -71,10 +79,10 @@ Block Map::getBlock(Point value){
     return Block(Point(-1,-1));
 }
 
-/*
+/**
  * getIndex
- * gets the block we want his index.
- * returns the index of the block in the map.
+ * @param the block we want his index.
+ * @return the index of the block in the map.
  */
 int Map::getIndex(Block block) {
     //go throw all the vertices
@@ -91,10 +99,10 @@ int Map::getIndex(Block block) {
     return -1;
 }
 
-/*
+/**
  * getIndex
- * gets the point value of the wanted block.
- * returns the index of the block in the map.
+ * @param the point value of the wanted block.
+ * @return the index of the block in the map.
  */
 int Map::getIndex(Point blockPoint) {
     std::list<Block>::iterator it;
@@ -110,12 +118,12 @@ int Map::getIndex(Point blockPoint) {
     return -1;
 }
 
-/*
+/**
  * addNeighboursOfCurBlock
- * gets the Block we want to add neighbours to.
+ * @param the Block we want to add neighbours to.
  * add all of the block's neighbours who is'nt an
    obstacle to the block.
- * returns the number of neighbours added.
+ * @return the number of neighbours added.
  */
 int Map::addNeighboursOfCurBlock(Block& currentBlock) {
     //the current block values.
@@ -165,17 +173,18 @@ int Map::addNeighboursOfCurBlock(Block& currentBlock) {
     return number;
 }
 
-/*
+/**
  * distanse
- * returns the size of the trip between two blocks
+ * @return the size of the trip between two blocks
  */
 int Map::distanse(Block &b1, Block &b2) {
     return BFS(b1,b2).size() - 1;
 }
 
-/* BFS
- * gets two Blocks objects, the start one and the target,
- * returns the minimum track from the start to the target, using Breadth-first search.
+/**
+ * BFS
+ * @param two Blocks objects, the start one and the target,
+ * @return the minimum track from the start to the target, using Breadth-first search.
  */
 list<Point> Map::BFS(Block& start, Block& end) {
     //creating an array that it's indexes will matches to the

@@ -3,14 +3,16 @@
 #include "TripInfo.h"
 using namespace std;
 
-/*class: TripInfo
+/**
+ * class: TripInfo
  * the objects that holds all the important information for the trip
  */
 
-/*
+/**
  * Constructor
- * gets the trip id, the start block, the end block and the tip's price
- * returns the build trip with the wanted values
+ * @param the trip id, the start block, the end block, the tip's price
+   and start time.
+ * @return the build trip with the wanted values
  */
 TripInfo::TripInfo(int id, Block &startB, Block &endB, int passNum, double price, int time) {
     this->ID = id;
@@ -22,30 +24,30 @@ TripInfo::TripInfo(int id, Block &startB, Block &endB, int passNum, double price
     this->tripTime = time;
     this->beenAttachToDriver = false;
 }
-/*
+/**
  * destructor
  * deletes the TripInfo.
  */
 TripInfo::~TripInfo() {
 }
 
-/*
+/**
  * fullTrack
- * returns the full track of the trip, from start to end
+ * @return the fuul track of the trip, from start to end
  */
 list<Point>* TripInfo::fullTrack() {
     return &(this->fullTrip);
 }
-/*
+/**
  * fullTrackLenght
- * returns the lenght of the full track
+ * @return the lenght of the full track
  */
 int TripInfo::fullTrackLenght() {
     return this->fullTrip.size();
 }
-/*
+/**
  * trackAhead
- * returns the track from the current point to the end
+ * @return the track from the current point to the end
  */
 list<Point> TripInfo::tracklAhead() {
     list<Point> ahaed;
@@ -59,16 +61,16 @@ list<Point> TripInfo::tracklAhead() {
     }
     return ahaed;
 }
-/*
+/**
  * tracklAheadLength
- * returns the length of the track ahead
+ * @return the length of the track ahead
  */
 int TripInfo::tracklAheadLength() {
     return (int)(tracklAhead().size());
 }
-/*
+/**
  * trackBehaind
- * returns the track from the start to the currnet point
+ * @return the track from the start to the currnet point
  */
 list<Point> TripInfo::trackBehaind() {
     list <Point> behaind;
@@ -82,18 +84,30 @@ list<Point> TripInfo::trackBehaind() {
     }
     return behaind;
 }
-/*
+/**
  * trackBehaindLength
- * returns the length of the trackbehaind
+ * @return the length of the trackbehaind
  */
 int TripInfo::trackBehaindLength() {
     return (int)(trackBehaind().size());
 }
 
+/**
+ * insertFullTrack
+ * @param track to insert to the trip
+ * inserting the givven track (list of point) to
+   the trip information
+ */
 void TripInfo::insertFullTrack(list<Point> &track) {
     this->fullTrip = track;
 }
 
+/**
+ * updateCurrentOneStep
+ * @param taxiType 1 or 2 for the number of blocks to move
+ * @param map of the game
+ * moving the current point one step
+ */
 void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
     list<Point>::iterator it;
     for(it = this->fullTrip.begin(); it != this->fullTrip.end(); it++) {

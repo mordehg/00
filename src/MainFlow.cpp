@@ -4,7 +4,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-#include "Server.h"
 #include "MainFlow.h"
 #include "../sockets/Udp.h"
 using namespace std;
@@ -81,7 +80,7 @@ void MainFlow::run() {
  * inputParser
  * receives the input and spared the input by "," and insert
    the strings to a list.
- * returns the list.
+ * @return the list.
  */
 vector<string> MainFlow::inputParser() {
     vector<string> data;
@@ -106,9 +105,10 @@ vector<string> MainFlow::inputParser() {
 
 /**
  * obstacles
+ * @param obstaclesNum number of obstacles
  * receives the obstacles input and translate it
    to a list of points
- * returns a list of point which is the obstacles
+ * @return a list of point which is the obstacles
  */
 list<Point> MainFlow::obstacles(int obstaclesNum) {
     list <Point> returnList;
@@ -127,9 +127,11 @@ list<Point> MainFlow::obstacles(int obstaclesNum) {
 }
 
 /**
- * insertDriver
- * receives the driver information in strings and translate it
-   to a driver. adding the driver to the given taxi center
+ * getDriverSendTaxi
+ * @param tc the taxi center
+ * receives the driver information from the client and adding the
+   driver to the given taxi center.
+ * sending the taxi to the client.
  */
 void MainFlow::getDriverSendTaxi(TaxiCenter& tc) {
     char buffer[4096];
@@ -162,6 +164,8 @@ void MainFlow::getDriverSendTaxi(TaxiCenter& tc) {
 
 /**
  * insertTrip
+ * @param tc the taxi center
+ * @param map the game's map
  * receives the trip information in strings and translate it
    to a trip. adding the trip to the given taxi center
  */
@@ -216,6 +220,7 @@ void MainFlow::insertTrip(TaxiCenter &tc, Map &map) {
 
 /**
  * insertTaxi
+ * @param tc the taxi center
  * receives the taxi information in strings and translate it
    to a taxi. adding the taxi to the given taxi center
  */
@@ -255,6 +260,7 @@ void MainFlow::insertTaxi(TaxiCenter &tc) {
 
 /**
  * printOutDriver
+ * @param tc the taxi center
  * gets an input for a driver id, and prints the
    driver's current location
  */
@@ -268,10 +274,10 @@ void MainFlow::printOutDriverLocation(TaxiCenter &tc) {
 
 /**
  * startDriving
- * attach a trip to each driver
- * move the drivers to the end of it's trip
+ * @param tc the taxi center
+ * move the drivers one step according to their
+   trip.
  */
 void MainFlow::startDriving(TaxiCenter &tc) {
-    tc.assignTrips();
     tc.moveAllToend();
 }

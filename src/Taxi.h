@@ -2,7 +2,6 @@
 #define EX2_TAXI_H
 
 #include <iostream>
-#include "Passenger.h"
 #include "TripInfo.h"
 #include <list>
 using namespace std;
@@ -42,9 +41,9 @@ public:
     Taxi() { }
     /**
      * Constructor
-     * gets the taxi's id, manufacture name, color, price coefficient and type,
+     * @param the taxi's id, manufacture name, color, price coefficient and type,
        1 - for standard and 2 - for luxury.
-     * returns the build taxi with the wanted values.
+     * @return the build taxi with the wanted values.
      */
     Taxi(int id, int type, char manu, char taxiColor);
     /**
@@ -54,27 +53,27 @@ public:
     ~Taxi();
     /**
      * getTaxiID
-     * returns the ID of the taxi
+     * @return the ID of the taxi
      */
     int getTaxiID() { return this->ID; }
     /**
-     *getKilometerSum
-     * gets the number of kilometers this taxi drove.
+     * getKilometerSum
+     * @param the number of kilometers this taxi drove.
      */
     int getKilometerSum() { return this->kilometerSum; }
     /**
      * getCarManufactuer
-     * returns the car's manufactuer
+     * @return the car's manufactuer
      */
     char getCarManufactuer() { return this->manufactuer; }
     /**
      * getColor
-     * returns tha taxi's color.
+     * @return tha taxi's color.
      */
     char getColor() { return this->color; }
     /**
      * getPriceCofficent
-     * returns the taxi coffiecent to add to the fina trip price
+     * @return the taxi coffiecent to add to the fina trip price
      */
     int getPriceCoeffcient() { return this->priceCoffcient; }
     /**
@@ -85,25 +84,25 @@ public:
 
     /**
      * updateTrip
-     * get a new trip and set the taxi's trip eith it
+     * @return a new trip and set the taxi's trip eith it
      */
     void updateTrip(TripInfo &newTrip) { this->currentTrip = newTrip; }
     /**
      * getTrip
-     * returns the taxi's current trip
+     * @return the taxi's current trip
      */
     TripInfo getTrip() { return this->currentTrip; }
     /**
      * finalPrice
-     * returns the final price: the final calculated price.
+     * @return the final price: the final calculated price.
      */
     int finalPrice();
 
     /**
      * moveOnStep
+     * @param the map of the game.
      * make the taxi moment, for a standard one moves 1
        block, for luxury one moves 2 blocks
-     * not implemented, the sons will implement as needed.
      */
     virtual void moveOneStep(Map map);
 
@@ -114,7 +113,7 @@ public:
 
     /**
      * setPrice
-     * get a new price for the taxi and set the current price
+     * @return a new price for the taxi and set the current price
      */
     void setPrice(int price) { this->priceCoffcient = price; }
 

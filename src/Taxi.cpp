@@ -1,5 +1,4 @@
 #include "Taxi.h"
-#include "LuxuryTaxi.h"
 
 /**
  *class: Taxi
@@ -10,9 +9,9 @@
 
 /**
  * Constructor
- * gets the taxi's id, manufacture name, color, price coefficient and type,
+ * @param the taxi's id, manufacture name, color, price coefficient and type,
    1 - for standard and 2 - for luxury.
- * returns the build taxi with the wanted values.
+ * @return the build taxi with the wanted values.
  */
 Taxi::Taxi(int id, int type, char manu, char taxiColor) {
     this->ID = id;
@@ -34,7 +33,7 @@ Taxi::~Taxi() {
 
 /**
  * finalPrice
- * returns the final price: the final calculated price.
+ * @return the final price: the final calculated price.
  */
 int Taxi::finalPrice() {
     return (this->priceCoffcient * this->currentTrip.getPrice());
@@ -48,7 +47,7 @@ bool Taxi::operator==(Taxi other) {
     return false;
 }
 
-/*
+/**
  * endOfTrip
  * change the current location of the taxi to
    the end of the trip
@@ -57,11 +56,11 @@ void Taxi::endOfTrip() {
     this->currentTrip.currentUpdate(this->currentTrip.getEndPoint());
 }
 
-/*
+/**
  * moveOnStep
+ * @param the map of the game.
  * make the taxi moment, for a standard one moves 1
    block, for luxury one moves 2 blocks
- * not implemented, the sons will implement as needed.
  */
 void Taxi::moveOneStep(Map map) {
     if (this->carType == 1) {

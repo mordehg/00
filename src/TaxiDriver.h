@@ -4,8 +4,8 @@
 #include <iostream>
 #include "Taxi.h"
 
-
-/*class: TaxiDriver
+/**
+ * class: TaxiDriver
  * the objects taht holds the taxi, with a few identifying fileds
  */
 class TaxiDriver {
@@ -32,88 +32,103 @@ class TaxiDriver {
         ar & available;
     }
 public:
-    /*
+    /**
      * default constructor
      */
     TaxiDriver() { }
-    /*
+    /**
      * Constructor
-     * gets the driver's id, age, status and exprience years
-     * returns the build TaxiDriver with the wanted values
+     * @param the driver's id, age, status and exprience years
+     * @return the build TaxiDriver with the wanted values
      */
     TaxiDriver(int id, int age, char driverS, int exp, int taxiID);
-    /*
+    /**
      * destructor
      * deletes the point.
      */
     ~TaxiDriver();
 
+    /**
+     * insertTaxi
+     * @param newTaxi to add to the taxi
+     */
     void insertTaxi(Taxi &newTaxi) { this->myTaxi = newTaxi; }
 
-    /*
+    /**
      * rankAvrage
-     * returns the avrange rank of this driver
+     * @return the avrange rank of this driver
      */
     int rankAvrage();
-    /*
+    /**
      * driverAvailable
-     * returns true if the driver is available and false otherwise
+     * @return true if the driver is available and false otherwise
      */
     bool driverAvailable() { return this->available; }
-    /*
+    /**
      * getTaxiId
-     * returns the taxi's ID
+     * @return the taxi's ID
      */
     int getTaxiID() { return this->myTaxi.getTaxiID(); }
-    /*
+    /**
      * getDriverId
-     * returns the driver's taxi's ID
+     * @return the driver's taxi's ID
      */
     int getDriverID() { return this->ID; }
-    /*
+    /**
      * getAge
-     * returns the drivers age
+     * @return the drivers age
      */
     int gatAge() { return this->age; }
-    /*
+    /**
      * getStatus
-     * returns the drivers status
+     * @return the drivers status
      */
     char getStatus() { return this->driverStatus; }
-    /*
+    /**
      * getExprience
-     * returns the drivers exprience
+     * @return the drivers exprience
      */
     int getExprience() { return  this->exprience; }
-    /*
+    /**
      * addRank
+     * @param newRank to set the renk
      * adding the given rank to the rank sum of the driver
      */
     void addRank(int &newRank) { this->rankSum+=newRank; }
-    /*
+    /**
      * addCustomer
      * adding 1 to the drivers customer counter
      */
     void addCustomer();
-    /*
+    /**
      * endOfTrip
      * changing the driver location to the end of it's trip
      */
     void endOfTrip();
 
-    /*
+    /**
      * insertNewTrip
+     * @param trip to insert to the taxi
      * insert the given trip to e the drivers current trip
      */
     void insertNewTrip(TripInfo &trip);
-    /*
+    /**
      * getLocation
      * getting the driver current location
      */
     Block getLocation();
 
+    /**
+     * moveTheTaxiOneStep
+     * @param map of the gamw
+     * moving the taxi one step
+     */
     void moveTheTaxiOneStep(Map map);
 
+    /**
+     * getTripTime
+     * @return the trip's time
+     */
     int getTripTime();
 };
 #endif //EX2_TAXIDRIVER_H

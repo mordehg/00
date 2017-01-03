@@ -7,7 +7,8 @@
 #include <boost/serialization/list.hpp>
 using namespace std;
 
-/*class: TripInfo
+/**
+ * class: TripInfo
  * the objects that holds all the important information for the trip
  */
 class TripInfo {
@@ -36,95 +37,122 @@ private:
         ar & tripTime;
     }
 public:
-    /*
+    /**
      * default constructor
      */
     TripInfo() { }
-    /*
+    /**
      * Constructor
-     * gets the trip id, the start block, the end block and the tip's price
-     * returns the build trip with the wanted values
+     * @param the trip id, the start block, the end block, the tip's price
+       and start time.
+     * @return the build trip with the wanted values
      */
     TripInfo(int id, Block &startB, Block &endB, int passNum, double price, int time);
-    /*
+    /**
      * destructor
      * deletes the TripInfo.
      */
     ~TripInfo();
-    /*
+    /**
      * fullTrack
-     * returns the fuul track of the trip, from start to end
+     * @return the fuul track of the trip, from start to end
      */
     list<Point>* fullTrack();
-    /*
+    /**
      * fullTrackLenght
-     * returns the lenght of the full track
+     * @return the lenght of the full track
      */
     int fullTrackLenght();
-    /*
+    /**
      * trackAhead
-     * returns the track from the current point to the end
+     * @return the track from the current point to the end
      */
     list<Point> tracklAhead();
-    /*
+    /**
      * tracklAheadLength
-     * returns the length of the track ahead
+     * @return the length of the track ahead
      */
     int tracklAheadLength();
-    /*
+    /**
      * trackBehaind
-     * returns the track from the start to the currnet point
+     * @return the track from the start to the currnet point
      */
     list<Point> trackBehaind();
-    /*
+    /**
      * trackBehaindLength
-     * returns the length of the trackbehaind
+     * @return the length of the trackbehaind
      */
     int trackBehaindLength();
-    /*
+    /**
      * getID
-     * returns the ID of the trip
+     * @return the ID of the trip
      */
     int getID() { return this->ID; };
-    /*
+    /**
      * getStartPoint
-     * returns the start Block
+     * @return the start Block
      */
     Block getStartPoint() { return this->start; }
-    /*
+    /**
      * getEndPoint
-     * returns the end Block
+     * @return the end Block
      */
     Block getEndPoint() { return this->end; }
-    /*
+    /**
      * getPrice
-     * returns the trip's price
+     * @return the trip's price
      */
     int getPrice() { return this->tariff; }
-    /*
+    /**
      * getCurrent
-     * returns the current point of the trip
+     * @return the current point of the trip
      */
     Block getCurrent() { return  this->currentPoint; }
-    /*
+    /**
      * currentUpdate
+     * @param current Block to update
      * updates the current point with the given block
      */
     void currentUpdate(Block current) { this->currentPoint = current; }
-    /*
+    /**
      * setPrice
+     * @param newPrice to update the price
      * sets the trip's price with the given new price
      */
     void setPrice(int newPrice) { this->tariff = newPrice; }
-
+    /**
+     * insertFullTrack
+     * @param track to insert to the trip
+     * inserting the givven track (list of point) to
+       the trip information
+     */
     void insertFullTrack(list<Point> &track);
 
+    /**
+     * getTripTime
+     * @return the start time of the trip
+     */
     int getTripTime() { return this->tripTime; }
 
+    /**
+     * hasADriver
+     * @return true if the trip has a driver and false
+       otherwise
+     */
     bool hasADriver() { return this->beenAttachToDriver; }
 
+    /**
+     * attachingADriver
+     * stting the has a driver flag
+     */
     void attachingADriver() { this->beenAttachToDriver = true; }
 
+    /**
+     * updateCurrentOneStep
+     * @param taxiType 1 or 2 for the number of blocks to move
+     * @param map of the game
+     * moving the current point one step
+     */
     void updateCurrentOneStep(int taxiType, Map map);
 };
 #endif //EX2_TRIPINFO_H

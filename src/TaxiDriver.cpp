@@ -1,12 +1,13 @@
 #include "TaxiDriver.h"
-/*class: TaxiDriver
+/**
+ * class: TaxiDriver
  * the objects taht holds the taxi, with a few identifying fileds
  */
 
-/*
+/**
  * Constructor
- * gets the driver's id, age, status and exprience years
- * returns the build TaxiDriver with the wanted values
+ * @param the driver's id, age, status and exprience years
+ * @return the build TaxiDriver with the wanted values
  */
 TaxiDriver::TaxiDriver(int id, int age, char driverS, int exp, int taxiID){
     this->ID = id;
@@ -18,20 +19,20 @@ TaxiDriver::TaxiDriver(int id, int age, char driverS, int exp, int taxiID){
     this->available = true;
     this->myTaxi = Taxi(taxiID, -1,'S',-1);
 }
-/*
+/**
  * destructor
  * deletes the point.
  */
 TaxiDriver::~TaxiDriver() {
 }
-/*
+/**
  * rankAvrage
- * returns the avrange rank of this driver
+ * @return the avrange rank of this driver
  */
 int TaxiDriver::rankAvrage() {
    return (this->rankSum / this->customerSum);
 }
-/*
+/**
  * addCustomer
  * adding 1 to the drivers customer counter
  */
@@ -40,8 +41,9 @@ void TaxiDriver::addCustomer() {
     this->available = false;
 }
 
-/*
+/**
  * insertNewTrip
+ * @param trip to insert to the taxi
  * insert the given trip to e the drivers current trip
  */
 void TaxiDriver::insertNewTrip(TripInfo &trip) {
@@ -50,7 +52,7 @@ void TaxiDriver::insertNewTrip(TripInfo &trip) {
     this->available = false;
 }
 
-/*
+/**
  * getLocation
  * getting the driver current location
  */
@@ -59,7 +61,7 @@ Block TaxiDriver::getLocation() {
         return Block(Point(0,0));
     return this->myTaxi.getTrip().getCurrent();
 }
-/*
+/**
  * endOfTrip
  * changing the driver location to the end of it's trip
  */
@@ -68,12 +70,21 @@ void TaxiDriver::endOfTrip() {
     this->available = true;
 }
 
+/**
+ * moveTheTaxiOneStep
+ * @param map of the gamw
+ * moving the taxi one step
+ */
 void TaxiDriver::moveTheTaxiOneStep(Map map) {
     this->myTaxi.moveOneStep(map);
     if (this->myTaxi.getTrip().getCurrent() == this->myTaxi.getTrip().getEndPoint())
         this->available == true;
 }
 
+/**
+ * getTripTime
+ * @return the trip's time
+ */
 int TaxiDriver::getTripTime() {
     return this->myTaxi.getTrip().getTripTime();
 }

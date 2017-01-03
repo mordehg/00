@@ -1,22 +1,21 @@
 #include <iostream>
 #include "Point.h"
 
-/* Class: Point
+/** Class: Point
  * a simple point class, that holds a x any y values
  */
 
-/*
+/**
  * Constructor
- * gets two integers: the x value
-                      the y value
- * returns: the build point with the wanted values.
+ * @param two integers: the x value
+                        the y value
+ * @return the build point with the wanted values.
  */
 Point::Point(int inputX, int inputY) {
     this->x = inputX;
     this->y = inputY;
 }
-
-/*
+/**
  * override the == operator for points
  */
 const bool Point::operator==(const Point &other) {
@@ -26,9 +25,9 @@ const bool Point::operator==(const Point &other) {
     return false;
 }
 
-/*
+/**
  * isNeighbours
- * gets a point, return true if the tow neighbours
+ * @param a point, return true if the tow neighbours
    and false otherwise.
  */
 bool Point::isNeighbours(Point other) {
@@ -44,7 +43,10 @@ bool Point::isNeighbours(Point other) {
     return false;
 }
 
-
+/**
+ * printPoint
+ * prints the point in the format: "(x,y)"
+ */
 void Point::printPoint() {
     cout << "(" << this->x << "," << this->y << ")" << endl;
 }

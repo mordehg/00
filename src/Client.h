@@ -9,23 +9,25 @@ class Client {
 private:
     TaxiDriver driver;
 public:
-    /*
+    /**
      * inputParser
      * receives the input and spared the input by "," and insert
        the strings to a list.
-     * returns the list.
+     * @return the list.
      */
     vector<string> inputParser();
 
-    /*
-    * insertDriver
+    /**
+    * createDriver
     * receives the driver information in strings and translate it
-      to a driver. adding the driver to the given taxi center
+      to a driver.
     */
     void createDriver();
 
+    /**
+     * getDriver
+     * @return the driver we created from the input
+     */
     TaxiDriver getDriver() { return this->driver; }
-
-    string serlizeDriver();
 };
 #endif //EX4_CLIENT_H

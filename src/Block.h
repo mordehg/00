@@ -3,9 +3,10 @@
 
 #include "Point.h"
 
-/* Class: Block
- *  Block keep his Point value, an array of his
-    neighbours and number of neighbours.
+/**
+ * Class: Block
+ * Block keep his Point value, an array of his
+   neighbours and number of neighbours.
  */
 class Block {
 private:
@@ -23,54 +24,65 @@ private:
         ar & obstacle;
     }
 public:
-    /*
+    /**
      * default constructor
      */
     Block() { }
-    /*
+
+    /**
      * Constructor
-     * gets the point value
-     * returns: the build Block with the wanted values.
+     * @param the point value
+     * @return the build Block with the wanted values.
      */
     Block(Point p);
 
-    /*
+    /**
      * destructor
      * deletes the Block.
      */
     ~Block();
 
+    /**
+     * isObstacles
+     * @return true if this block is an obstacle and false
+       otherwise.
+     */
     bool isObstacles() { return this->obstacle; }
 
+    /**
+     * setIsObstacles
+     * @param flag: true if this block is obstacle and flase
+       otherwise.
+     */
     void setIsObstacles(bool flag) {this->obstacle = flag; }
 
-    /*
+    /**
      * getValue
-     * return the Point value of the Block*/
+     * @return the Point value of the Block*/
     Point getValue() const{ return this->value; }
-    /*
+    /**
      * getNeighboursNum
-     * returns number of neighbours
+     * @return number of neighbours
      */
     int getNeighboursNum() { return this->neighboursNum; }
-    /*
+    /**
      * settNeighboursNum
-     * get a new neighbours number and sets the neighboursNum field.
+     * @param a new neighbours number and sets the neighboursNum field.
      */
     void setNeighboursNum(int newNum) { this->neighboursNum = newNum; }
-    /*
+    /**
      * getNeighbour
-     * get the wanted neighbour's index
-     * returns the Point that is the wanted neighbour
+     * @param the wanted neighbour's index
+     * @return the Point that is the wanted neighbour
      */
     Point getNeighbour(int i);
-    /*
+    /**
      * insertNeighbour
-     * get an index and a Block.
+     * @param an index and a Block.
      * inserts the given block's value in to the neighbours list in the index place.
      */
     void insertNeighbour(int index, Block neighbour);
-     /*
+     /**
       * override the == operator for blocks
       */
     const bool operator== (const Block &other);

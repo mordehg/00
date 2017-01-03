@@ -15,7 +15,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 using namespace std;
-/* Class: Point
+/** Class: Point
  * a simple point class, that holds a x any y values
  */
 class Point {
@@ -32,46 +32,49 @@ private:
         ar & y;
     }
 public:
-    /*
+    /**
      * default constructor
      */
     Point() {}
-    /*
+    /**
      * Constructor
-     * gets two integers: the x value
-                          the y value
-     * returns: the build point with the wanted values.
+     * @param two integers: the x value
+                            the y value
+     * @return the build point with the wanted values.
      */
     Point(int inputX, int inputY);
-    /*
+    /**
      * destructor
      * deletes the point.
      */
     ~Point() {}
 
-    /*
+    /**
      * getX
-     * returns an integer, the x value
+     * @return an integer, the x value
      */
     int getX() const{ return this->x; }
-    /*
+    /**
      * getY
-     * returns an integer, the y value
+     * @return an integer, the y value
      */
     int getY() const{ return  this->y; }
 
-    /*
+    /**
      * isNeighbours
-     * gets a point, return true if the tow neighbours
+     * @param a point, return true if the tow neighbours
        and false otherwise.
      */
     bool isNeighbours(Point other);
-    /*
+    /**
      * override the == operator for points
      */
     const bool operator== (const Point &other);
-    //void printPoint();
 
+    /**
+     * printPoint
+     * prints the point in the format: "(x,y)"
+     */
     void printPoint();
 
 };

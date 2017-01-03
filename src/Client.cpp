@@ -12,10 +12,12 @@ BOOST_CLASS_EXPORT_GUID(StandardTaxi,"StandardTaxi");
 BOOST_CLASS_EXPORT_GUID(LuxuryTaxi,"LuxuryTaxi");
 
 using namespace boost;
-/* insertDriver
- * receives the driver information in strings and translate it
-   to a driver. adding the driver to the given taxi center
-*/
+/**
+ * inputParser
+ * receives the input and spared the input by "," and insert
+   the strings to a list.
+ * @return the list.
+ */
 vector<string> Client::inputParser() {
     vector<string> data;
     string input;
@@ -37,11 +39,11 @@ vector<string> Client::inputParser() {
     return data;
 }
 
-/*
- * insertDriver
- * receives the driver information in strings and translate it
-   to a driver. adding the driver to the given taxi center
- */
+/**
+* createDriver
+* receives the driver information in strings and translate it
+  to a driver.
+*/
 void Client::createDriver() {
     //all the driver's given information will be in a
     //string's vector:
@@ -76,7 +78,9 @@ void Client::createDriver() {
     this->driver = new_driver;
 }
 
-
+/**
+ * the client's main methode
+ */
 int main() {
     //first, getting the driver from the console and creating it
     Client c = Client();

@@ -1,49 +1,30 @@
 #include <iostream>
 #include "TaxiCenter.h"
 
-/*class: TaxiCenter
+/**
+ * class: TaxiCenter
  * center that holds the map and all of the drivers, taxis and passengers
  */
 
-list<TripInfo> TaxiCenter::sortTripInfoList() {
-    list<TripInfo> sortedTrips;
-    list<TripInfo>::iterator it;
-    int lastInsertID = -1;
-    for(it = this->currnetTrips.begin(); it != this->currnetTrips.end(); it++) {
-        list<TripInfo>::iterator it2;
-        it2 = this->currnetTrips.begin();
-        TripInfo minTrip = *it2;
-        it2++;
-        for (it2; it2 != this->currnetTrips.end(); it2++) {
-            if (it2->getID() != lastInsertID) {
-                if (it2->getTripTime() < minTrip.getTripTime())
-                    minTrip = *it2;
-            }
-        }
-        lastInsertID = minTrip.getID();
-        sortedTrips.push_front(minTrip);
-    }
-    return sortedTrips;
-}
-
-/*
+/**
  * Constructor
- * gets the map.
- * returns: the build taxi center with the wanted map.
+ * @param the map.
+ * @return the build taxi center with the wanted map.
  */
 TaxiCenter::TaxiCenter(Map inputMap) {
     this->map = inputMap;
 }
-/*
+/**
  * destructor
  * deletes the TaxiCenter.
  */
 TaxiCenter::~TaxiCenter() {
 }
 
-/*
+/**
  * getAvaliableDriver
- * returns a driver that is available and most close to the trip.
+ * @param trip that needs a driver
+ * @return a driver that is available for the trip.
  */
 TaxiDriver TaxiCenter::getAvaliableDriver(TripInfo &trip) {
     Block tripStsrt = trip.getStartPoint();
@@ -64,6 +45,12 @@ TaxiDriver TaxiCenter::getAvaliableDriver(TripInfo &trip) {
     return minDisDriver;
 }
 
+/**
+ * assignAvaliableDriver
+ * @param trip that needs a driver
+ * assigning the driver to the trip using avaliableDriver
+   to find the driver
+ */
 void TaxiCenter::assignAvaliableDriver(TripInfo &trip) {
     Block tripStsrt = trip.getStartPoint();
     list<TaxiDriver>::iterator it;
@@ -88,9 +75,10 @@ void TaxiCenter::assignAvaliableDriver(TripInfo &trip) {
         }
     }
 }
-/*
+/**
  * getTaxiDriver
- * returns the taxi with the given ID
+ * @param driverID that we want to get.
+ * @return the taxi with the given ID
  */
 TaxiDriver TaxiCenter::getTaxiDriver(int driverID) {
     std::list<TaxiDriver>::iterator it;
@@ -101,9 +89,10 @@ TaxiDriver TaxiCenter::getTaxiDriver(int driverID) {
     }
     return TaxiDriver(-1, -1,'S',-1, -1);
 }
-/*
+/**
  * getTaxi
- * returns the drivet with tha given ID
+ * @param taxiID that we want to get.
+ * @return the drivet with tha given ID
  */
 Taxi TaxiCenter::getTaxi(int taxiID) {
     std::list<Taxi>::iterator it;
@@ -115,23 +104,26 @@ Taxi TaxiCenter::getTaxi(int taxiID) {
     return Taxi(-1,-1 ,'H','R');
 }
 
-/*
+/**
  * addDriver
+ * @param driver to add
  * adding the given driver to the center
  */
 void TaxiCenter::addDriver(TaxiDriver &driver) {
     this->drivers.push_front(driver);
 }
-/*
+/**
  * addTaxi
+ * @param taxi to add
  * adding the given taxi to the center
  */
 void TaxiCenter::addTaxi(Taxi &taxi) {
     this->taxis.push_front(taxi);
 }
 
-/*
+/**
  * addTrip
+ * @param trip to add
  * adding the given trip to the center
  */
 void TaxiCenter::addTrip(TripInfo &trip) {
@@ -143,10 +135,11 @@ void TaxiCenter::addTrip(TripInfo &trip) {
     this->currnetTrips.push_front(trip);
 }
 
-/*
- * moveAllToend
- * changind the current location of each driver to the end
- * of it's trip
+/**
+ * moveAllOneStep
+ * @param the map of the game.
+ * @param the clock for the current time
+ * moving all of the druvers in the center one step.
  */
 void TaxiCenter::moveAllToend() {
     list<TaxiDriver>::iterator it;
@@ -155,21 +148,11 @@ void TaxiCenter::moveAllToend() {
     }
 }
 
-/*
- * assignTrips
- * attach each driver to a trip by the trip time and start location
+/**
+ * getTripByTime
+ * @param tripTime the time the trip need to start
+ * @return returns a trip with this start time
  */
-void TaxiCenter::assignTrips() {
-    list<TripInfo> sortedListOfTheTrips = sortTripInfoList();
-    list<TripInfo>::iterator it;
-    for (it = sortedListOfTheTrips.begin(); it != sortedListOfTheTrips.end(); it++) {
-        if (!it->hasADriver()) {
-            TaxiDriver closestDriver = getAvaliableDriver(*it);
-            closestDriver.insertNewTrip(*it);
-        }
-    }
-}
-
 TripInfo TaxiCenter::getTripByTime(int tripTime) {
     list<TripInfo>::iterator it;
     for (it = this->currnetTrips.begin(); it != this->currnetTrips.end(); it++) {
@@ -180,7 +163,12 @@ TripInfo TaxiCenter::getTripByTime(int tripTime) {
     return TripInfo(-1, nab, nab, -1,-1,-1);
 }
 
-
+/**
+ * moveAllOneStep
+ * @param the map of the game.
+ * @param the clock for the current time
+ * moving all of the druvers in the center one step.
+ */
 void TaxiCenter::moveAllOneStep(Map map, Clock clock) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {

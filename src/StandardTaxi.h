@@ -4,31 +4,32 @@
 #include <iostream>
 #include "Taxi.h"
 
-/*
+/**
  * class: StandartdTaxi
  * this class inheritor from the Taxi class,
    it implements the moveOneStep method only
  */
 class StandardTaxi : public Taxi {
 public:
-    /*
+    /**
      * default constructor
      */
     StandardTaxi() { }
-    /*
+    /**
      * Constructor
-     * gets the taxi's id, manufacture name, color, price coefficient
-     * returns the build taxi with 1 as type, for luxury taxi.
+     * @param the taxi's id, manufacture name, color, price coefficient
+     * @return the build taxi with 1 as type, for luxury taxi.
      */
     StandardTaxi(int id, char manu, char color);
-    /*
+    /**
      * destructor
      * deletes the standard taxi.
      */
     ~StandardTaxi() { this->~Taxi(); }
 
-    /*
+    /**
      * moveOnStep
+     * @param the map of the game.
      * make the taxi moment, for a standard one moves 1
        block, for luxury one moves 2 blocks
      */
