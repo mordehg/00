@@ -184,7 +184,7 @@ TripInfo TaxiCenter::getTripByTime(int tripTime) {
 void TaxiCenter::moveAllOneStep(Map map, Clock clock) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
-        if (clock.currentTime() - it->getTripTime() == 1) {
+        if (clock.currentTime() - it->getTripTime() >= 1) {
             it->moveTheTaxiOneStep(map);
         }
     }

@@ -70,6 +70,8 @@ void TaxiDriver::endOfTrip() {
 
 void TaxiDriver::moveTheTaxiOneStep(Map map) {
     this->myTaxi.moveOneStep(map);
+    if (this->myTaxi.getTrip().getCurrent() == this->myTaxi.getTrip().getEndPoint())
+        this->available == true;
 }
 
 int TaxiDriver::getTripTime() {
