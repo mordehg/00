@@ -28,7 +28,9 @@ StandardTaxi::StandardTaxi(int id, char manu, char color) {
  * @param the map of the game.
  * make the taxi moment, for a standard one moves 1
    block, for luxury one moves 2 blocks
+ * @return 1 - if the trip get to an end
+           0 - otherwise
  */
-void StandardTaxi::moveOneStep(Map map) {
-    this->currentTrip.updateCurrentOneStep(1, map);
+int StandardTaxi::moveOneStep(Map map) {
+    return this->currentTrip.updateCurrentOneStep(1, map);
 }

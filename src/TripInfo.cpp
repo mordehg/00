@@ -106,9 +106,12 @@ void TripInfo::insertFullTrack(list<Point> &track) {
  * updateCurrentOneStep
  * @param taxiType 1 or 2 for the number of blocks to move
  * @param map of the game
+ * @return 1 - the end of the trip, 0 - otherwisw
  * moving the current point one step
  */
-void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
+int TripInfo::updateCurrentOneStep(int taxiType, Map map) {
+    if (this->ID == -1)
+        return 0;
     list<Point>::iterator it;
     for(it = this->fullTrip.begin(); it != this->fullTrip.end(); it++) {
         if (*it == this->currentPoint.getValue())
@@ -116,17 +119,22 @@ void TripInfo::updateCurrentOneStep(int taxiType, Map map) {
     }
     if (taxiType == 1) {
         it++;
-        if (it == this->fullTrip.end())
-            return;
+        if (*it == *(this->fullTrip.end())) {
+            return 1;
+        }
         currentPoint = map.getBlock(*it);
     } else if (taxiType == 2 ){
         it++;
-        if (it == this->fullTrip.end())
-            return;
+        if (*it == *(this->fullTrip.end())) {
+            return 1;
+        }
+        currentPoint = map.getBlock(*it);
         it++;
-        if (it == this->fullTrip.end())
-            return;
+        if (*it == *(this->fullTrip.end())) {
+            return 1;
+        }
         currentPoint = map.getBlock(*it);
     }
+    return 0;
 }
 

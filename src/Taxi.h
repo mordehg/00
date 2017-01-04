@@ -103,8 +103,9 @@ public:
      * @param the map of the game.
      * make the taxi moment, for a standard one moves 1
        block, for luxury one moves 2 blocks
+     * @return 1 - the end of the trip, 0 - otherwisw
      */
-    virtual void moveOneStep(Map map);
+    virtual int moveOneStep(Map map);
 
     /**
      * override the == operator for taxis

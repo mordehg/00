@@ -32,7 +32,9 @@ public:
      * @param the map of the game.
      * make the taxi moment, for a standard one moves 1
        block, for luxury one moves 2 blocks
+     * @return 1 - if the trip get to an end
+               0 - otherwise
      */
-    void moveOneStep(Map map);
+    int moveOneStep(Map map);
 };
 #endif //EX2_STANDARDTAXI_H

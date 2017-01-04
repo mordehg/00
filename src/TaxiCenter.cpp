@@ -52,26 +52,10 @@ TaxiDriver TaxiCenter::getAvaliableDriver(TripInfo &trip) {
    to find the driver
  */
 void TaxiCenter::assignAvaliableDriver(TripInfo &trip) {
-    Block tripStsrt = trip.getStartPoint();
     list<TaxiDriver>::iterator it;
-    TaxiDriver minDisDriver;
-    it = this->drivers.begin();
-    minDisDriver = *it;
-    it++;
-    for (it; it != this->drivers.end(); it++) {
-        Block itLocation = it->getLocation();
-        Block minLocation = minDisDriver.getLocation();
-        int currentDistace = this->map.distanse(itLocation, tripStsrt);
-        int minDis = this->map.distanse(minLocation, tripStsrt);
-        if (it->driverAvailable() && (currentDistace < minDis)) {
-            minDisDriver = *it;
-        }
-    }
-    list<TaxiDriver>::iterator it2;
-    for(it2 = this->drivers.begin(); it2 != this->drivers.end(); it2++) {
-        if (minDisDriver.getDriverID() == it2->getDriverID()) {
-            it2->insertNewTrip(trip);
-            break;
+    for (it = this->drivers.begin(); it != this->drivers.end(); it++) {
+        if (it->driverAvailable() && (trip.getCurrent() == it->getLocation())) {
+            it->insertNewTrip(trip);
         }
     }
 }
@@ -172,8 +156,10 @@ TripInfo TaxiCenter::getTripByTime(int tripTime) {
 void TaxiCenter::moveAllOneStep(Map map, Clock clock) {
     list<TaxiDriver>::iterator it;
     for(it = this->drivers.begin(); it != this->drivers.end(); it++) {
-        if (clock.currentTime() - it->getTripTime() >= 1) {
-            it->moveTheTaxiOneStep(map);
+        if (clock.currentTime() > it->getTripTime()) {
+            int end = it->moveTheTaxiOneStep(map);
+            if (end == 1)
+                it->endOfTrip();
         }
     }
 }

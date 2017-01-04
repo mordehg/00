@@ -151,8 +151,9 @@ public:
      * updateCurrentOneStep
      * @param taxiType 1 or 2 for the number of blocks to move
      * @param map of the game
+     * @return 1 - the end of the trip, 0 - otherwisw
      * moving the current point one step
      */
-    void updateCurrentOneStep(int taxiType, Map map);
+    int updateCurrentOneStep(int taxiType, Map map);
 };
 #endif //EX2_TRIPINFO_H

@@ -190,7 +190,8 @@ list<Point> Map::BFS(Block& start, Block& end) {
     //creating an array that it's indexes will matches to the
     //block ones. each value in the array will represent a flag
     //true - being visited already, false - was not
-    bool visit[this->numOfBlocks];
+
+    bool *visit = new bool[this->numOfBlocks];
     for (int i = 0; i < this->numOfBlocks; i++) {
         //starting with no block being visited
         visit[i] = false;
@@ -199,7 +200,7 @@ list<Point> Map::BFS(Block& start, Block& end) {
     //creating an array that it's indexes will matches to the
     //blocks ones. each Point in the array will represent the
     //parent of the matches index block parent.
-    Point parents[this->numOfBlocks];
+    Point *parents = new Point[this->numOfBlocks];
 
     int currentX, currentY;
     Block current, currentNeighbour;
@@ -248,5 +249,8 @@ list<Point> Map::BFS(Block& start, Block& end) {
         returnList.push_back(printStack.top());
         printStack.pop();
     }
+
+    delete[] visit;
+    delete[] parents;
     return returnList;
 }

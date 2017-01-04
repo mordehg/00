@@ -57,28 +57,26 @@ void TaxiDriver::insertNewTrip(TripInfo &trip) {
  * getting the driver current location
  */
 Block TaxiDriver::getLocation() {
-    if (this->myTaxi.getTaxiID() == -1)
-        return Block(Point(0,0));
     return this->myTaxi.getTrip().getCurrent();
 }
 /**
  * endOfTrip
- * changing the driver location to the end of it's trip
+ * when the driver get to the and of the trip
+   he is now available
  */
 void TaxiDriver::endOfTrip() {
-    this->myTaxi.endOfTrip();
     this->available = true;
 }
 
 /**
  * moveTheTaxiOneStep
  * @param map of the gamw
+ * @return 1 - if the trip get to an end
+           0 - otherwise
  * moving the taxi one step
  */
-void TaxiDriver::moveTheTaxiOneStep(Map map) {
-    this->myTaxi.moveOneStep(map);
-    if (this->myTaxi.getTrip().getCurrent() == this->myTaxi.getTrip().getEndPoint())
-        this->available == true;
+int TaxiDriver::moveTheTaxiOneStep(Map map) {
+    return this->myTaxi.moveOneStep(map);
 }
 
 /**

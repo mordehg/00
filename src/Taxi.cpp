@@ -61,11 +61,12 @@ void Taxi::endOfTrip() {
  * @param the map of the game.
  * make the taxi moment, for a standard one moves 1
    block, for luxury one moves 2 blocks
+ * @return 1 - the end of the trip, 0 - otherwisw
  */
-void Taxi::moveOneStep(Map map) {
+int Taxi::moveOneStep(Map map) {
     if (this->carType == 1) {
-        this->currentTrip.updateCurrentOneStep(1, map);
+        return this->currentTrip.updateCurrentOneStep(1, map);
     } else if (this->carType == 2) {
-        this->currentTrip.updateCurrentOneStep(2, map);
+        return this->currentTrip.updateCurrentOneStep(2, map);
     }
 }

@@ -101,9 +101,10 @@ public:
      */
     void addCustomer();
     /**
-     * endOfTrip
-     * changing the driver location to the end of it's trip
-     */
+    * endOfTrip
+    * when the driver get to the and of the trip
+       he is now available
+    */
     void endOfTrip();
 
     /**
@@ -119,11 +120,13 @@ public:
     Block getLocation();
 
     /**
-     * moveTheTaxiOneStep
-     * @param map of the gamw
-     * moving the taxi one step
-     */
-    void moveTheTaxiOneStep(Map map);
+    * moveTheTaxiOneStep
+    * @param map of the gamw
+    * @return 1 - if the trip get to an end
+             0 - otherwise
+    * moving the taxi one step
+    */
+    int moveTheTaxiOneStep(Map map);
 
     /**
      * getTripTime
